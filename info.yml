@@ -1,0 +1,45 @@
+# Info for the schoreboard
+service_name: "know_your_mem"
+description: "A classic to start. Find the flag page, in 64-bit.\nTimeouts are strict, please test locally first! This challenge can be written in C and coverted, if you wish -- see the hint files."
+tags:
+  - intro
+violates_flag_format: false # if this is not "true", the flag is verfied against the flag format
+
+flag: "OOO{Hacking is Might, my friend}" # TODO: this is the flag of the service
+
+# Type can be normal or king_of_the_hill
+type: normal
+
+# This is the number of concurrent connections that a container should be able to handle.
+# This will be tested by the test script
+# TODO: test
+concurrent_connections: 10
+
+authors:
+  - hacopo
+
+#
+# Directories below the next two are absolute in either the `service` or `interaction` docker container.
+#
+
+# These are the files that will be "public" to the teams via the scoreboard.
+# The paths are absolute in the `service` docker container.
+public_files:
+  - /know_your_mem.c
+  - /simplified.c
+  - /simplified_shellcode.c
+  - /shellcode.c
+  - /Makefile
+  - /topkt.py
+
+# Test scripts are heavily encouraged.
+# All scripts should exit 0 if nothing went wrong.
+# Scripts are automatically determined to be exploit scripts if they start with the word "exploit".
+# Exploit scripts must output the flag using "FLAG: <FLAG>" and exit with 0 if the flag was captured correctly. 
+# The paths are absolute in the `interaction` docker container.
+interactions:
+  - /exploit.sh
+  - /check_simple.sh
+  - /check_infiniteloop.sh
+  - /check_busyloop.sh
+  - /check_segfault.sh

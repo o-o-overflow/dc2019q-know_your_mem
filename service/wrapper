@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec 2>/dev/null
+timeout -k 30 20 stdbuf -i0 -o0 -e0 /know_your_mem
