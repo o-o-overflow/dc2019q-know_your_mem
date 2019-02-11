@@ -1,0 +1,6 @@
+/simplified
+/*.so
+/*.bin
+/checks/simple.bin
+*.pkt
+*.elf
