@@ -10,4 +10,4 @@ COPY *.sh /
 COPY src/ /src/
 
 # Builds everything + self-tests
-run make -C src mycheck
+run make -C src mycheck 2>/dev/null

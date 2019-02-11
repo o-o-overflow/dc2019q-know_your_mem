@@ -1,11 +1,11 @@
 # Info for the schoreboard
 service_name: "know_your_mem"
-description: "A classic to start. Find the flag page, in 64-bit.\nTimeouts are strict, please test locally first! This challenge can be written in C and coverted, if you wish -- see the hint files."
+description: "Find the flag page in memory, 64-bit edition. Timeouts are strict, please test locally first! There's a simplified version to help with that."
 tags:
   - intro
 violates_flag_format: false # if this is not "true", the flag is verfied against the flag format
 
-flag: "OOO{Hacking is Might, my friend}" # TODO: this is the flag of the service
+flag: "OOO{so many bits, so many syscalls}" # TODO: this is the flag of the service
 
 # Type can be normal or king_of_the_hill
 type: normal
@@ -13,7 +13,7 @@ type: normal
 # This is the number of concurrent connections that a container should be able to handle.
 # This will be tested by the test script
 # TODO: test
-concurrent_connections: 10
+concurrent_connections: 16
 
 authors:
   - hacopo
@@ -25,12 +25,12 @@ authors:
 # These are the files that will be "public" to the teams via the scoreboard.
 # The paths are absolute in the `service` docker container.
 public_files:
-  - /know_your_mem.c
-  - /simplified.c
-  - /simplified_shellcode.c
-  - /shellcode.c
-  - /Makefile
-  - /topkt.py
+  - /src/know_your_mem.c
+  - /src/simplified.c
+  - /src/simplified_shellcode.c
+  - /src/shellcode.c
+  - /src/Makefile
+  - /src/topkt.py
 
 # Test scripts are heavily encouraged.
 # All scripts should exit 0 if nothing went wrong.
