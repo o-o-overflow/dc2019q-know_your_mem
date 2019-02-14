@@ -7,7 +7,7 @@ run make know_your_mem
 
 run touch /flag && chmod 644 /flag && echo "OOO{so many bits, so many syscalls}" > /flag
 copy know_your_mem.conf /know_your_mem.conf
-copy wrapper /wrapper
+#copy wrapper /wrapper
 
 # Other files that go in the public bundle
 copy src/simplified.c /
