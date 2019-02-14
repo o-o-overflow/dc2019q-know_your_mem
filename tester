@@ -141,6 +141,7 @@ def build_bundle():
 
 
 if __name__ == '__main__':
+	subprocess.check_call(['bash', '_internal_copy_to_interaction.sh'])
 	validate_yaml()
 	arg = sys.argv[1] if len(sys.argv) >= 2 else ""
 	if arg == 'build':
