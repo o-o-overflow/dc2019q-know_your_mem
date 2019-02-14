@@ -25,12 +25,12 @@ authors:
 # These are the files that will be "public" to the teams via the scoreboard.
 # The paths are absolute in the `service` docker container.
 public_files:
-  - /src/know_your_mem.c
-  - /src/simplified.c
-  - /src/simplified_shellcode.c
-  - /src/shellcode.c
-  - /src/Makefile
-  - /src/topkt.py
+  - /know_your_mem.c
+  - /simplified.c
+  - /simplified_shellcode.so.c
+  - /shellcode.c
+  - /Makefile
+  - /topkt.py
 
 # Test scripts are heavily encouraged.
 # All scripts should exit 0 if nothing went wrong.

@@ -64,7 +64,7 @@ static void* put_secret_somewhere_in_memory()
     strcpy(pg, HEADER);
     int fd = TEMP_FAILURE_RETRY(open("flag", O_RDONLY));
     if (fd == -1)
-        err(37, "flag open - missing ./flag.txt?");
+        err(37, "flag open - missing ./flag?");
     struct stat st;
     if (fstat(fd, &st) != 0)
         err(38, "flag fstat");
@@ -117,8 +117,8 @@ static void filter_syscalls()
 
     ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(brk), 0);
     ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(set_thread_area), 0);
-    ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat), 0);
-    ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat64), 0);
+    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat), 0);
+    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat64), 0);
     //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(access), 0);
     //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(readlink), 0);
 
