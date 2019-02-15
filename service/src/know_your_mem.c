@@ -1,6 +1,8 @@
 #define _GNU_SOURCE
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/resource.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
 #include <dlfcn.h>
@@ -181,6 +183,12 @@ int main(int argc, char *argv[])
     setbuf(stdin, NULL);
     setbuf(stdout, NULL);
     srand(time(NULL));
+    struct rlimit as_limit = {  // Note: there are also CPU limits in the live version
+        .rlim_cur = 100 * 1024 * 1024,
+        .rlim_max = 110 * 1024 * 1024
+    };
+    if (setrlimit(RLIMIT_AS, &as_limit) != 0)
+        warn("RLIMIT_AS");
 
     struct utsname un;
     uname(&un);
@@ -188,11 +196,6 @@ int main(int argc, char *argv[])
             "Here, we're running on %s %s (%s)\n",
             un.sysname, un.release, un.machine);
 
-#ifdef SIMPLIFIED
-    void *secret_addr =
-#endif
-        put_secret_somewhere_in_memory();
-    put_fakes_in_memory();
 
 #ifdef SIMPLIFIED
     shellcodefn shellcode = load_shellcode((argc >= 2) ? argv[1] : "./simplified_shellcode.so");
@@ -200,6 +203,14 @@ int main(int argc, char *argv[])
 #else
     shellcodefn shellcode = load_shellcode();
 #endif
+
+
+#ifdef SIMPLIFIED
+    void *secret_addr =
+#endif
+        put_secret_somewhere_in_memory();
+    put_fakes_in_memory();
+
 
     fflush(NULL);
     filter_syscalls();
