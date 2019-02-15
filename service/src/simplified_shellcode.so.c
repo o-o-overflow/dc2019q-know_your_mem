@@ -14,5 +14,5 @@ void *shellcode()
 
     printf("Hi! Soon I'll be your shellcode!\n");
 
-    return (void*) 0x123456; // For testing purposes, you should also return it
+    return (void*) 0x123456; // For this simplified test it's also OK to return the address
 }

@@ -1,4 +1,6 @@
-- package
 - dump mem + grep secret addr
+- ok to use rand()?
+
+- xinetd temporarily stops the service for everyone if there are too many connections -- what to do? alert and spawn more?
 
 - moar tests on worse CPU

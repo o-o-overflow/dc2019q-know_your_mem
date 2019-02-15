@@ -1,8 +1,8 @@
-// Writing shellcode can be annoying, but you don't have to do everything!
 // This is an example of turning simple C into raw shellcode.
 
-// make shellcode.bin.pkt will get you 99% of the way there
-// ./know_your_mem < shellcode.bin.pkt will run it.
+// make shellcode.bin will compile to assembly
+// make shellcode.bin.pkt will prepend the length so you can
+//    ./know_your_mem < shellcode.bin.pkt
 
 // Note: Right now the 'build' does not support .(ro)data
 //       If you want them you'll have to adjust the Makefile.

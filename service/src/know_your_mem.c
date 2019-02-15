@@ -36,10 +36,8 @@ typedef void* (*shellcodefn)();
 static void *random_addr()
 {
     uintptr_t ret;
-    //if (getrandom(&ret, sizeof(uintptr_t), GRND_NONBLOCK) != sizeof(uintptr_t))
-    //    err(11, "getrandom");
     int fd = open("/dev/urandom", O_RDONLY); if (read(fd, &ret, sizeof(ret)) != sizeof(ret)) { err(47, "urandom"); } close(fd);
-    //unsigned long ret = ((unsigned long)rand() << 48) | ((unsigned long)rand() << 32) | ((unsigned long)rand() << 16) | (unsigned long)rand();
+    // TODO: unsigned long ret = ((unsigned long)rand() << 48) | ((unsigned long)rand() << 32) | ((unsigned long)rand() << 16) | (unsigned long)rand();
     return (void*)((ret & ADDR_MASK) + ADDR_MIN);
 }
 
@@ -59,14 +57,14 @@ static void *map_page(void *addr)
 
 static void* put_secret_somewhere_in_memory()
 {
-    fprintf(stderr, "[ ] Putting a secret somewhere in memory...\n");
+    fprintf(stderr, "[ ] Putting the flag somewhere in memory...\n");
 
     char *pg = map_page(random_addr());
 
     strcpy(pg, HEADER);
     int fd = TEMP_FAILURE_RETRY(open("flag", O_RDONLY));
     if (fd == -1)
-        err(37, "flag open - missing ./flag?");
+        err(37, "open ./flag");
     struct stat st;
     if (fstat(fd, &st) != 0)
         err(38, "flag fstat");
@@ -119,17 +117,12 @@ static void filter_syscalls()
 
     ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(brk), 0);
     ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(set_thread_area), 0);
-    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat), 0);
-    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat64), 0);
-    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(access), 0);
-    //ret |= seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(readlink), 0);
 
     if (ret < 0)
         error(6, -ret, "allow rules");
     ret = seccomp_load(ctx);
     if (ret < 0)
         error(6, -ret, "seccomp_load");
-    // As long as there are no big mallocs or %n, stderr printfs should work
     fprintf(stderr, "[*] seccomp filter now active!\n");
     seccomp_release(ctx);
 }
@@ -182,13 +175,14 @@ int main(int argc, char *argv[])
     alarm(10);
     setbuf(stdin, NULL);
     setbuf(stdout, NULL);
-    srand(time(NULL));
-    struct rlimit as_limit = {  // Note: there are also CPU limits in the live version
+    //srand(time(NULL));
+    struct rlimit as_limit = {  // Yes, the live version also has CPU limits
         .rlim_cur = 100 * 1024 * 1024,
         .rlim_max = 110 * 1024 * 1024
     };
     if (setrlimit(RLIMIT_AS, &as_limit) != 0)
         warn("RLIMIT_AS");
+
 
     struct utsname un;
     uname(&un);
