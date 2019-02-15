@@ -46,8 +46,7 @@ static int try_mmap(void *addr)
         DBG("UNEXPECTED MAP_FAILED (errno=%d): 0x%16lx .. 0x%16lx\n", mio_errno, start, start+chunk_size-1);
         return 0;
     }
-    if (pg != addr)
-        sys_munmap((void*) pg, chunk_size);
+    sys_munmap((void*) pg, chunk_size);
     return (pg != addr);
 }
 
