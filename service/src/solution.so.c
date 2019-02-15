@@ -96,9 +96,8 @@ void *shellcode()
     uintptr_t start = ADDR_MIN;
     for (size_t i = 1; i <= nchunks; i++) {
         DBG("Scanning chunk %3zu/%3zu [0x%16lx .. 0x%16lx)\r", i, nchunks, start, start+chunk_size);
-        void *tmp;
-        if ((tmp = check_chunk(start)))
-            ret = tmp; // Could just return it, but let's see the worst case.
+        if ((ret = check_chunk(start)))
+            return ret;
         start += chunk_size;
     }
     return ret;
