@@ -1,5 +1,5 @@
 from ubuntu:18.04
-run apt-get update && apt-get install --no-install-recommends -y build-essential binutils python3 xinetd libseccomp-dev libseccomp2 bash
+run apt-get update -qq && apt-get install -qq --no-install-recommends -y build-essential binutils python3 xinetd libseccomp-dev libseccomp2 bash
 
 copy src/know_your_mem.c /
 copy src/Makefile /
