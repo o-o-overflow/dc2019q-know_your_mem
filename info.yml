@@ -31,7 +31,7 @@ public_files:
   - /shellcode.c
   - /Makefile
   - /topkt.py
-  - /README.fast_people
+  - /README.md
 
 # Test scripts are heavily encouraged.
 # All scripts should exit 0 if nothing went wrong.

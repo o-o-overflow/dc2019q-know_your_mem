@@ -13,7 +13,7 @@ copy src/simplified.c /
 copy src/simplified_shellcode.so.c /
 copy src/shellcode.c /
 copy src/topkt.py /
-copy src/README.fast_people /
+copy src/README.md /
 
 expose 4669
 cmd ["/usr/sbin/xinetd", "-filelog", "-", "-dontfork", "-f", "/know_your_mem.conf"]
