@@ -9,5 +9,5 @@ ENV TERM linux
 COPY *.sh /
 COPY src/ /src/
 
-# Builds everything + self-tests
+# Builds what's not checked-in (simplified+checks) + self-tests
 run make -C src mycheck 2>/dev/null

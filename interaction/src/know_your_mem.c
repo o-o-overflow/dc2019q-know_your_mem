@@ -45,10 +45,12 @@ static void *map_page(void *addr)
             PROT_READ|PROT_WRITE,
             MAP_ANONYMOUS|MAP_PRIVATE | (addr != NULL ? MAP_FIXED : 0),
             -1, 0);
+#ifdef SIMPLIFIED
     if (ret == MAP_FAILED)
         err(8, "Could not mmap() at %p -- maybe I was not lucky with random picking?", addr);
     if (addr != NULL && ret != addr)
         err(99, "Wrong flags to mmap? ret = %p != %p = wanted", ret, addr);
+#endif
     return ret;
 }
 
