@@ -5,6 +5,8 @@ tags:
   - intro
 violates_flag_format: false # if this is not "true", the flag is verfied against the flag format
 
+allow_egress: False
+
 flag: "OOO{so many bits, so many syscalls}"
 
 # Type can be normal or king_of_the_hill
