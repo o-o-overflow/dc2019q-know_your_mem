@@ -12,6 +12,8 @@ copy src/know_your_mem /
 run touch /flag && chmod 644 /flag && echo "OOO{so many bits, so many syscalls}" > /flag
 copy know_your_mem.conf /know_your_mem.conf
 
+copy banner_fail /
+
 expose 4669
 cmd ["/usr/sbin/xinetd", "-filelog", "-", "-dontfork", "-f", "/know_your_mem.conf"]
 # TODO: -filelog - doesn't work? /dev/stderr?
