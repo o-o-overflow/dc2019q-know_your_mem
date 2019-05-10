@@ -20,6 +20,11 @@ concurrent_connections: 16
 authors:
   - hacopo
 
+game_network_info:
+  host: know_your_mem.quals2019.oooverflow.io
+  port: 4669
+  
+
 #
 # Directories below the next two are absolute in either the `service` or `interaction` docker container.
 #
