@@ -35,7 +35,9 @@ typedef void* (*shellcodefn)();
 
 static void *random_addr()
 {
-    unsigned long ret = ((unsigned long)rand() << 48) | ((unsigned long)rand() << 32) | ((unsigned long)rand() << 16) | (unsigned long)rand();
+    uintptr_t ret;
+    int fd = open("/dev/urandom", O_RDONLY); if (read(fd, &ret, sizeof(ret)) != sizeof(ret)) { err(47, "urandom"); } close(fd);
+    // TODO: unsigned long ret = ((unsigned long)rand() << 48) | ((unsigned long)rand() << 32) | ((unsigned long)rand() << 16) | (unsigned long)rand();
     return (void*)((ret & ADDR_MASK) + ADDR_MIN);
 }
 
@@ -177,14 +179,7 @@ int main(int argc, char *argv[])
     alarm(10);
     setbuf(stdin, NULL);
     setbuf(stdout, NULL);
-
-    unsigned int seed;
-    int rand_fd = open("/dev/urandom", O_RDONLY);
-    if (read(rand_fd, &seed, sizeof(seed)) != sizeof(seed))
-        err(47, "urandom");
-    close(rand_fd);
-    srand(seed); // TODO: time(NULL) arm?
-
+    //srand(time(NULL));
     struct rlimit as_limit = {  // Yes, the live version also has CPU limits
         .rlim_cur = 100 * 1024 * 1024,
         .rlim_max = 110 * 1024 * 1024
