@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/random.h>
 #include <sys/resource.h>
 #include <sys/time.h>
 #include <sys/types.h>
@@ -36,8 +37,8 @@ typedef void* (*shellcodefn)();
 static void *random_addr()
 {
     uintptr_t ret;
-    int fd = open("/dev/urandom", O_RDONLY); if (read(fd, &ret, sizeof(ret)) != sizeof(ret)) { err(47, "urandom"); } close(fd);
-    // TODO: unsigned long ret = ((unsigned long)rand() << 48) | ((unsigned long)rand() << 32) | ((unsigned long)rand() << 16) | (unsigned long)rand();
+    //int fd = open("/dev/urandom", O_RDONLY); if (read(fd, &ret, sizeof(ret)) != sizeof(ret)) { err(47, "urandom"); } close(fd);
+    if (getrandom(&ret, sizeof(ret), GRND_NONBLOCK) != sizeof(ret)) err(47, "getrandom");
     return (void*)((ret & ADDR_MASK) + ADDR_MIN);
 }
 
